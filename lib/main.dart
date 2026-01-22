@@ -6,9 +6,7 @@ import 'screens/worker.dart';
 import 'screens/supervisor.dart';
 import 'screens/admin.dart';
 
-void main() {
-  runApp(const NaturaApp());
-}
+void main() => runApp(const NaturaApp());
 
 class NaturaApp extends StatefulWidget {
   const NaturaApp({super.key});
@@ -37,18 +35,14 @@ class _NaturaAppState extends State<NaturaApp> {
       );
     }
 
-    Widget home;
     final u = state.currentUser;
-
-    if (u == null) {
-      home = LoginScreen(state: state);
-    } else if (u.role == Role.worker) {
-      home = WorkerScreen(state: state);
-    } else if (u.role == Role.supervisor) {
-      home = SupervisorScreen(state: state);
-    } else {
-      home = AdminScreen(state: state);
-    }
+    final Widget home = (u == null)
+        ? LoginScreen(state: state)
+        : (u.role == Role.worker)
+            ? WorkerScreen(state: state)
+            : (u.role == Role.supervisor)
+                ? SupervisorScreen(state: state)
+                : AdminScreen(state: state);
 
     return MaterialApp(
       title: 'Natura',
